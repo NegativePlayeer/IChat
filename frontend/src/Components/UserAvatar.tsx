@@ -1,8 +1,12 @@
-function UserAvatar() {
+import type { User } from './types/index';
+
+function UserAvatar({ isActive }: Pick<User, 'isActive'>) {
 	return (
 		<div className='relative bg-violet-600 text-violet-100 rounded-full w-12 h-12 flex items-center justify-center shrink-0'>
 			<span>Ja</span>
-			<div className='absolute inset-8 rounded-full bg-green-500 w-4 h-4 shadow-lg shadow-green-500/50'></div>
+			<div
+				className={`absolute inset-8 rounded-full ${isActive ? 'bg-green-500 w-4 h-4 shadow-lg shadow-green-500/50' : 'bg-red-500 w-4 h-4 shadow-lg shadow-red-500/50'} `}
+			></div>
 		</div>
 	);
 }
