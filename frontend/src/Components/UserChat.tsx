@@ -1,5 +1,6 @@
 import UserAvatar from './UserAvatar';
 import { dateParser } from './helpers/dateParser';
+import { usernameShortener } from './helpers/usernameShortener';
 import type { User } from './types/index';
 
 interface UserChatProps {
@@ -13,13 +14,18 @@ function UserChat({
 	selectedUser,
 	onClick,
 }: UserChatProps) {
+	const shortenName = usernameShortener(userInfo.username);
+
 	return (
 		<div
 			className={`flex items-center justify-between gap-4  px-3 py-2 cursor-pointer ${selectedUser ? 'bg-violet-200' : 'hover:bg-violet-100'}`}
 			onClick={onClick}
 		>
 			<div className='flex gap-5 items-center'>
-				<UserAvatar isActive={userInfo.isActive} />
+				<UserAvatar
+					isActive={userInfo.isActive}
+					usernameShort={shortenName}
+				/>
 				<div className='flex flex-col gap-1'>
 					<h4 className='font-semibold'>
 						{userInfo.username}
