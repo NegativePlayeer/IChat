@@ -2,6 +2,7 @@
 import UserChat from './UserChat';
 import IChatLogo from '../../public/IChatLogo';
 import type { User } from './types/index';
+import { useState } from 'react';
 
 interface SidebarProps {
 	users: User[];
@@ -14,6 +15,20 @@ function Sidebar({
 	selectedUser,
 	onSelectUser,
 }: SidebarProps) {
+	const [filter, setFilter] = useState<string>('');
+	let filterUser: User[];
+
+	if (filter === '') {
+		filterUser = [...users];
+	} else {
+		filterUser = [...users].filter(
+			(user) =>
+				user.username
+					.toLowerCase()
+					.indexOf(filter.toLocaleLowerCase()) > -1,
+		);
+	}
+
 	return (
 		<div className='flex flex-col w-1/4 z-10 h-full bg-zinc-300 pt-3 shadow-lg shadow-violet-200/50'>
 			<div className='flex px-5 mb-5 gap-5 items-center'>
@@ -24,10 +39,12 @@ function Sidebar({
 					type='text'
 					className='border-none bg-zinc-200 rounded-sm outline-none px-3 py-2.5 w-4/5'
 					placeholder='Search...'
+					value={filter}
+					onChange={(e) => setFilter(e.target.value)}
 				/>
 			</div>
 			<div>
-				{users.map((user) => (
+				{filterUser.map((user) => (
 					<UserChat
 						key={user.id}
 						userInfo={user}
