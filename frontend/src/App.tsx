@@ -6,7 +6,7 @@ import type { User } from './Components/types/index';
 const mockUsers: User[] = [
 	{
 		id: 'u1',
-		username: 'Dawid Łuka',
+		username: 'IBot',
 		isActive: true,
 		messages: [
 			{
@@ -78,15 +78,19 @@ const mockUsers: User[] = [
 ];
 
 function App() {
-	const [users, setUsers] = useState<User[]>(mockUsers);
+	const [users] = useState<User[]>(mockUsers);
 	const [activeUser, setActiveUser] = useState<User | null>(
-		null,
+		mockUsers[0],
 	);
 
 	return (
 		<div className='flex h-screen'>
-			<Sidebar users={users} onSelectUser={setActiveUser} />
-			<Chat user={activeUser} />
+			<Sidebar
+				users={users}
+				selectedUser={activeUser}
+				onSelectUser={setActiveUser}
+			/>
+			{activeUser && <Chat user={activeUser} />}
 		</div>
 	);
 }

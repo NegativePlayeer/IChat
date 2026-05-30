@@ -1,14 +1,17 @@
+import type { User } from './types';
 import UserAvatar from './UserAvatar';
 
-function ChatHeader() {
+function ChatHeader({ userInfo }: User) {
 	return (
 		<div className='flex gap-2.5 p-2.5 bg-zinc-200 items-center'>
 			<div className='flex gap-4'>
-				<UserAvatar />
+				<UserAvatar isActive={userInfo.isActive} />
 				<div>
-					<h4 className='font-semibold'>Dawid Łuka</h4>
+					<h4 className='font-semibold'>
+						{userInfo.username}
+					</h4>
 					<span className='uppercase text-sm text-gray-400'>
-						Online
+						{userInfo.isActive ? 'online' : 'offline'}
 					</span>
 				</div>
 			</div>

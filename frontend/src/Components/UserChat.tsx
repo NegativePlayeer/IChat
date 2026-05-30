@@ -1,13 +1,26 @@
 import UserAvatar from './UserAvatar';
 import type { User } from './types/index';
 
-function UserChat({ userInfo }: User) {
+interface UserChatProps {
+	userInfo: User;
+	selectedUser: boolean;
+	onClick: () => void;
+}
+
+function UserChat({
+	userInfo,
+	selectedUser,
+	onClick,
+}: UserChatProps) {
 	const userLastMessageData =
-		userInfo.messages.at(-1).timestamp;
+		userInfo.messages.at(-1)?.timestamp;
 	const messageDate = `${userLastMessageData?.getHours().toString().padStart(2, '0')}:${userLastMessageData?.getMinutes().toString().padStart(2, '0')}`;
 
 	return (
-		<div className='flex items-center justify-between gap-4 hover:bg-violet-100 px-3 py-2 cursor-pointer'>
+		<div
+			className={`flex items-center justify-between gap-4  px-3 py-2 cursor-pointer ${selectedUser ? 'bg-violet-200' : 'hover:bg-violet-100'}`}
+			onClick={onClick}
+		>
 			<div className='flex gap-5 items-center'>
 				<UserAvatar isActive={userInfo.isActive} />
 				<div className='flex flex-col gap-1'>

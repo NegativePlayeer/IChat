@@ -1,12 +1,13 @@
 import ChatHeader from './ChatHeader';
 import Conversation from './Conversation';
 import { Send } from 'lucide-react';
+import type { User } from './types';
 
-function Chat() {
+function Chat({ user }: User | null) {
 	return (
 		<div className='flex flex-col flex-1 h-full bg-zinc-100'>
-			<ChatHeader />
-			<Conversation />
+			<ChatHeader userInfo={user} />
+			<Conversation messages={user.messages} />
 			<div className='flex items-center gap-4 p-5 bg-gray-200'>
 				<input
 					placeholder='Write a message...'

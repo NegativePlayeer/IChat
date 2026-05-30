@@ -3,13 +3,17 @@ import UserChat from './UserChat';
 import IChatLogo from '../../public/IChatLogo';
 import type { User } from './types/index';
 
+interface SidebarProps {
+	users: User[];
+	selectedUser: User | null;
+	onSelectUser: (user: User) => void;
+}
+
 function Sidebar({
 	users,
+	selectedUser,
 	onSelectUser,
-}: {
-	users: User[];
-	onSelectUser: (user: User) => void;
-}) {
+}: SidebarProps) {
 	return (
 		<div className='flex flex-col w-1/4 z-10 h-full bg-zinc-300 pt-3 shadow-lg shadow-violet-200/50'>
 			<div className='flex px-5 mb-5 gap-5 items-center'>
@@ -27,6 +31,7 @@ function Sidebar({
 					<UserChat
 						key={user.id}
 						userInfo={user}
+						selectedUser={selectedUser?.id === user.id}
 						onClick={() => onSelectUser(user)}
 					/>
 				))}
