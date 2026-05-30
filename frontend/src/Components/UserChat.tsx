@@ -1,4 +1,5 @@
 import UserAvatar from './UserAvatar';
+import { dateParser } from './helpers/dateParser';
 import type { User } from './types/index';
 
 interface UserChatProps {
@@ -12,10 +13,6 @@ function UserChat({
 	selectedUser,
 	onClick,
 }: UserChatProps) {
-	const userLastMessageData =
-		userInfo.messages.at(-1)?.timestamp;
-	const messageDate = `${userLastMessageData?.getHours().toString().padStart(2, '0')}:${userLastMessageData?.getMinutes().toString().padStart(2, '0')}`;
-
 	return (
 		<div
 			className={`flex items-center justify-between gap-4  px-3 py-2 cursor-pointer ${selectedUser ? 'bg-violet-200' : 'hover:bg-violet-100'}`}
@@ -33,7 +30,7 @@ function UserChat({
 				</div>
 			</div>
 			<span className='text-sm self-start text-gray-400 pt-1 '>
-				{messageDate}
+				{dateParser(userInfo.messages.at(-1))}
 			</span>
 		</div>
 	);
