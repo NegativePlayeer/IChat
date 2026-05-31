@@ -3,6 +3,7 @@ import Chat from './Components/Chat';
 import Sidebar from './Components/Sidebar';
 import type {
 	CurrentUser,
+	Message,
 	User,
 } from './Components/types/index';
 
@@ -88,19 +89,55 @@ function App() {
 	const [users, setUsers] = useState<User[]>(mockUsers);
 	//If activeUser is matched then it should set new message for them
 	//activeUser.id === 'u2' e.g.
-	const [activeUser, setActiveUser] = useState<User | null>(
-		mockUsers[0],
+	const [selectedUserId, setSelectedUserId] =
+		useState<string>(mockUsers[0].id);
+
+	const selectedUser = users.find(
+		(u) => u.id === selectedUserId, //Previously I've got stale state, that was not updated after changing user list
 	);
+
+	function handleSendMessage(
+		activeUserId: string,
+		message: string,
+	) {
+		const newMessage: Message = {
+			id: crypto.randomUUID(),
+			text: message,
+			senderId: currentUser.id,
+			timestamp: new Date(),
+		};
+
+		setUsers((prevUsers) =>
+			prevUsers.map((user) => {
+				if (user.id !== activeUserId) return user;
+				return {
+					...user,
+					messages: [...user.messages, newMessage],
+				};
+			}),
+		);
+
+		// if (activeUserId === activeUser.id) {
+		// 	setUsers((prevUser) => ([
+		// 		...prevUser,
+		// 		messages: [...messages, ,]
+		// 	]));
+		// }
+	}
 
 	return (
 		<div className='flex h-screen'>
 			<Sidebar
 				users={users}
-				selectedUser={activeUser}
-				onSelectUser={setActiveUser}
+				selectedUserId={selectedUserId}
+				onSelectedUserId={setSelectedUserId}
 			/>
-			{activeUser && (
-				<Chat user={activeUser} currentUser={currentUser} />
+			{selectedUser && (
+				<Chat
+					user={selectedUser}
+					currentUser={currentUser}
+					onSendMessage={handleSendMessage}
+				/>
 			)}
 		</div>
 	);

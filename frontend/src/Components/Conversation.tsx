@@ -4,14 +4,14 @@ import { dateParser } from './helpers/dateParser';
 
 function Conversation({
 	messages,
-	myMessages,
+	// myMessages, mock solution to fake-logic
 	currentUserId,
 }: {
 	messages: Message[];
-	myMessages: Message[];
+	// myMessages: Message[];
 	currentUserId: string;
 }) {
-	const allMessages = [...messages, ...myMessages]
+	const allMessages = [...messages]
 		.sort(
 			(a, b) =>
 				a.timestamp.getTime() - b.timestamp.getTime(),

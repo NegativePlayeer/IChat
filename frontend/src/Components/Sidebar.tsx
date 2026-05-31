@@ -6,14 +6,14 @@ import { useState } from 'react';
 
 interface SidebarProps {
 	users: User[];
-	selectedUser: User | null;
-	onSelectUser: (user: User) => void;
+	selectedUserId: string;
+	onSelectedUserId: (id: string) => void;
 }
 
 function Sidebar({
 	users,
-	selectedUser,
-	onSelectUser,
+	selectedUserId,
+	onSelectedUserId,
 }: SidebarProps) {
 	const [filter, setFilter] = useState<string>('');
 	let filterUser: User[];
@@ -48,8 +48,8 @@ function Sidebar({
 					<UserChat
 						key={user.id}
 						userInfo={user}
-						selectedUser={selectedUser?.id === user.id}
-						onClick={() => onSelectUser(user)}
+						selectedUser={selectedUserId === user.id}
+						onClick={() => onSelectedUserId(user.id)}
 					/>
 				))}
 			</div>

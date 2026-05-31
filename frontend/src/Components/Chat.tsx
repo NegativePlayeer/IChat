@@ -1,37 +1,45 @@
 import ChatHeader from './ChatHeader';
 import Conversation from './Conversation';
 import { Send } from 'lucide-react';
-import type { User, Message, CurrentUser } from './types';
+import type { User, CurrentUser } from './types';
 import React, { useState } from 'react';
+
+interface ChatProps {
+	user: User;
+	currentUser: CurrentUser;
+	onSendMessage: (
+		activeUser: string,
+		message: string,
+	) => void;
+}
 
 function Chat({
 	user,
 	currentUser,
-}: {
-	user: User;
-	currentUser: CurrentUser;
-}) {
+	onSendMessage,
+}: ChatProps) {
 	const [message, setMessage] = useState<string>('');
-	const [myMessages, setMyMessages] = useState<Message[]>(
-		[],
-	);
+	// const [myMessages, setMyMessages] = useState<Message[]>(
+	// 	[],
+	// ); -> no longer needed
 
 	function handleMessageSend(
 		e: React.SubmitEvent<HTMLFormElement>,
 	) {
 		e.preventDefault();
 		if (!message) return;
-		setMyMessages((prevMessages) => {
-			return [
-				...prevMessages,
-				{
-					id: crypto.randomUUID(),
-					text: message,
-					senderId: currentUser.id,
-					timestamp: new Date(),
-				},
-			];
-		});
+		// setMyMessages((prevMessages) => {
+		// 	return [
+		// 		...prevMessages,
+		// 		{
+		// 			id: crypto.randomUUID(),
+		// 			text: message,
+		// 			senderId: currentUser.id,
+		// 			timestamp: new Date(),
+		// 		},
+		// 	];
+		// });
+		onSendMessage(user.id, message);
 		setMessage('');
 	}
 
@@ -40,7 +48,7 @@ function Chat({
 			<ChatHeader user={user} />
 			<Conversation
 				messages={user.messages}
-				myMessages={myMessages}
+				// myMessages={myMessages}
 				currentUserId={currentUser.id}
 			/>
 			<form
