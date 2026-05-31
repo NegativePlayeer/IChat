@@ -1,5 +1,3 @@
-import type { User } from '../types';
-
 export const usernameShortener = (
 	username: string,
 ): string =>

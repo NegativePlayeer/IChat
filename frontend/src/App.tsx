@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import Chat from './Components/Chat';
 import Sidebar from './Components/Sidebar';
-import type { User } from './Components/types/index';
+import type {
+	CurrentUser,
+	User,
+} from './Components/types/index';
 
 const mockUsers: User[] = [
 	{
@@ -78,7 +81,13 @@ const mockUsers: User[] = [
 ];
 
 function App() {
-	const [users] = useState<User[]>(mockUsers);
+	const [currentUser] = useState<CurrentUser>({
+		id: 'u0',
+		username: 'Dawid Łuka',
+	});
+	const [users, setUsers] = useState<User[]>(mockUsers);
+	//If activeUser is matched then it should set new message for them
+	//activeUser.id === 'u2' e.g.
 	const [activeUser, setActiveUser] = useState<User | null>(
 		mockUsers[0],
 	);
@@ -90,7 +99,9 @@ function App() {
 				selectedUser={activeUser}
 				onSelectUser={setActiveUser}
 			/>
-			{activeUser && <Chat user={activeUser} />}
+			{activeUser && (
+				<Chat user={activeUser} currentUser={currentUser} />
+			)}
 		</div>
 	);
 }

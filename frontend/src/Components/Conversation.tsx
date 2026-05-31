@@ -2,23 +2,26 @@ import type { Message } from './types/index';
 import MessageBubble from './MessageBubble';
 import { dateParser } from './helpers/dateParser';
 
-const MY_ID = 'u0';
-
 function Conversation({
 	messages,
 	myMessages,
+	currentUserId,
 }: {
 	messages: Message[];
 	myMessages: Message[];
+	currentUserId: string;
 }) {
 	const allMessages = [...messages, ...myMessages]
+		.sort(
+			(a, b) =>
+				a.timestamp.getTime() - b.timestamp.getTime(),
+		)
 		.map((message) => {
 			return {
 				...message,
 				timestamp: dateParser(message),
 			};
-		})
-		.sort((a, b) => +a.timestamp - +b.timestamp);
+		});
 
 	return (
 		<div className='bg-zinc-50 h-full'>
@@ -27,7 +30,7 @@ function Conversation({
 					<MessageBubble
 						key={message.id}
 						text={message.text}
-						isMine={message.senderId === MY_ID}
+						isMine={message.senderId === currentUserId}
 						time={message.timestamp}
 					/>
 				))}

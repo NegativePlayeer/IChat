@@ -1,11 +1,9 @@
-import type { User } from './types/index';
-
 function UserAvatar({
 	isActive,
 	usernameShort,
 }: {
-	isActive: Pick<User, 'isActive'>;
-	usernameShort: Pick<User, 'username'>;
+	isActive: boolean;
+	usernameShort: string;
 }) {
 	return (
 		<div className='relative bg-violet-600 text-violet-100 rounded-full w-12 h-12 flex items-center justify-center shrink-0'>

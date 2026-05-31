@@ -12,3 +12,8 @@ export interface User {
 	isActive: boolean;
 	messages: Message[];
 }
+
+export interface CurrentUser {
+	id: string;
+	username: string;
+}

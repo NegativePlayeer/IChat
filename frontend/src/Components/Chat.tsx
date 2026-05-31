@@ -1,10 +1,16 @@
 import ChatHeader from './ChatHeader';
 import Conversation from './Conversation';
 import { Send } from 'lucide-react';
-import type { User, Message } from './types';
+import type { User, Message, CurrentUser } from './types';
 import React, { useState } from 'react';
 
-function Chat({ user }: { user: User | null }) {
+function Chat({
+	user,
+	currentUser,
+}: {
+	user: User;
+	currentUser: CurrentUser;
+}) {
 	const [message, setMessage] = useState<string>('');
 	const [myMessages, setMyMessages] = useState<Message[]>(
 		[],
@@ -14,13 +20,14 @@ function Chat({ user }: { user: User | null }) {
 		e: React.SubmitEvent<HTMLFormElement>,
 	) {
 		e.preventDefault();
+		if (!message) return;
 		setMyMessages((prevMessages) => {
 			return [
 				...prevMessages,
 				{
 					id: crypto.randomUUID(),
 					text: message,
-					senderId: 'u0',
+					senderId: currentUser.id,
 					timestamp: new Date(),
 				},
 			];
@@ -30,10 +37,11 @@ function Chat({ user }: { user: User | null }) {
 
 	return (
 		<div className='flex flex-col flex-1 h-full bg-zinc-100'>
-			<ChatHeader userInfo={user} />
+			<ChatHeader user={user} />
 			<Conversation
 				messages={user.messages}
 				myMessages={myMessages}
+				currentUserId={currentUser.id}
 			/>
 			<form
 				className='flex items-center gap-4 p-5 bg-gray-200'
