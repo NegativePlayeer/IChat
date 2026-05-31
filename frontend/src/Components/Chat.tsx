@@ -52,7 +52,7 @@ function Chat({
 				currentUserId={currentUser.id}
 			/>
 			<form
-				className='flex items-center gap-4 p-5 bg-gray-200'
+				className='flex shrink-0 items-center gap-4 p-5 bg-gray-200'
 				onSubmit={handleMessageSend}
 			>
 				<input

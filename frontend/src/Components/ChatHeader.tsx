@@ -5,7 +5,7 @@ import UserAvatar from './UserAvatar';
 function ChatHeader({ user }: { user: User }) {
 	const shortenName = usernameShortener(user.username);
 	return (
-		<div className='flex gap-2.5 p-2.5 bg-zinc-200 items-center'>
+		<div className='flex shrink-0 gap-2.5 p-2.5 bg-zinc-200 items-center'>
 			<div className='flex gap-4'>
 				<UserAvatar
 					isActive={user.isActive}

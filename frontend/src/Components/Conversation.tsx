@@ -24,17 +24,15 @@ function Conversation({
 		});
 
 	return (
-		<div className='bg-zinc-50 h-full'>
-			<div className='flex-1 overflow-y-auto p-4'>
-				{allMessages.map((message) => (
-					<MessageBubble
-						key={message.id}
-						text={message.text}
-						isMine={message.senderId === currentUserId}
-						time={message.timestamp}
-					/>
-				))}
-			</div>
+		<div className='flex-1 bg-zinc-50 min-h-0 overflow-y-auto p-4'>
+			{allMessages.map((message) => (
+				<MessageBubble
+					key={message.id}
+					text={message.text}
+					isMine={message.senderId === currentUserId}
+					time={message.timestamp}
+				/>
+			))}
 		</div>
 	);
 }
