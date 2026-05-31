@@ -27,7 +27,7 @@ function Chat({
 		e: React.SubmitEvent<HTMLFormElement>,
 	) {
 		e.preventDefault();
-		if (!message) return;
+		if (!message.trim()) return; //Whitespaces are still doable
 		// setMyMessages((prevMessages) => {
 		// 	return [
 		// 		...prevMessages,
@@ -44,12 +44,13 @@ function Chat({
 	}
 
 	return (
-		<div className='flex flex-col flex-1 h-full bg-zinc-100'>
+		<main className='flex flex-col flex-1 h-full bg-zinc-100'>
 			<ChatHeader user={user} />
 			<Conversation
 				messages={user.messages}
 				// myMessages={myMessages}
 				currentUserId={currentUser.id}
+				username={user.username}
 			/>
 			<form
 				className='flex shrink-0 items-center gap-4 p-5 bg-gray-200'
@@ -61,12 +62,17 @@ function Chat({
 					className='px-4 py-2 grow outline-none border-b-2 border-violet-300 focus:border-violet-600'
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
+					aria-label='Message'
 				/>
-				<button className='cursor-pointer text-violet-600'>
+				<button
+					type='submit'
+					aria-label='Send Message'
+					className='cursor-pointer text-violet-600'
+				>
 					<Send size={32} />
 				</button>
 			</form>
-		</div>
+		</main>
 	);
 }
 

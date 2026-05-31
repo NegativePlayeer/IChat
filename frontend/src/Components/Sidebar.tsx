@@ -16,35 +16,39 @@ function Sidebar({
 	onSelectedUserId,
 }: SidebarProps) {
 	const [filter, setFilter] = useState<string>('');
-	let filterUser: User[];
+	let filteredUser: User[];
 
 	if (filter === '') {
-		filterUser = [...users];
+		filteredUser = [...users];
 	} else {
-		filterUser = [...users].filter(
+		filteredUser = [...users].filter(
 			(user) =>
 				user.username
 					.toLowerCase()
-					.indexOf(filter.toLocaleLowerCase()) > -1,
+					.indexOf(filter.toLowerCase()) > -1,
 		);
 	}
 
 	return (
-		<div className='flex flex-col w-1/4 z-10 h-full bg-zinc-300 pt-3 shadow-lg shadow-violet-200/50'>
+		<nav
+			className='flex flex-col w-1/4 z-10 h-full bg-zinc-300 pt-3 shadow-lg shadow-violet-200/50'
+			aria-label='Chat list'
+		>
 			<div className='flex px-5 mb-5 gap-5 items-center'>
 				<span className='cursor-pointer text-violet-600'>
 					<IChatLogo />
 				</span>
 				<input
 					type='text'
-					className='border-none bg-zinc-200 rounded-sm outline-none px-3 py-2.5 w-4/5'
-					placeholder='Search...'
+					className=' bg-zinc-200 rounded-sm outline-none px-3 py-2.5 w-4/5 border-b-2 border-violet-300 focus:border-violet-600'
+					placeholder='Search conversations...'
+					aria-label='Search conversations'
 					value={filter}
 					onChange={(e) => setFilter(e.target.value)}
 				/>
 			</div>
 			<div>
-				{filterUser.map((user) => (
+				{filteredUser.map((user) => (
 					<UserChat
 						key={user.id}
 						userInfo={user}
@@ -53,7 +57,7 @@ function Sidebar({
 					/>
 				))}
 			</div>
-		</div>
+		</nav>
 	);
 }
 

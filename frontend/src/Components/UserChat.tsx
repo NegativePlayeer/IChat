@@ -17,11 +17,15 @@ function UserChat({
 	const shortenName = usernameShortener(userInfo.username);
 
 	return (
-		<div
-			className={`flex items-center justify-between gap-4  px-3 py-2 cursor-pointer ${selectedUser ? 'bg-violet-200' : 'hover:bg-violet-100'}`}
+		<button
+			className={`flex w-full  focus-visible:outline-2 focus-visible: outline-violet-600 text-left items-center justify-between gap-4  px-3 py-2 cursor-pointer ${selectedUser ? 'bg-violet-200' : 'hover:bg-violet-100'}`}
 			onClick={onClick}
+			aria-selected={selectedUser}
 		>
-			<div className='flex gap-5 items-center'>
+			<div
+				className='flex gap-5 items-center'
+				aria-label='Conversations'
+			>
 				<UserAvatar
 					isActive={userInfo.isActive}
 					usernameShort={shortenName}
@@ -36,9 +40,13 @@ function UserChat({
 				</div>
 			</div>
 			<span className='text-sm self-start text-gray-400 pt-1 '>
-				{dateParser(userInfo.messages.at(-1))}
+				{
+					userInfo.messages.length > 0
+						? dateParser(userInfo.messages.at(-1))
+						: 'Start new conversation!' /*What if we don't write to someone yet?*/
+				}
 			</span>
-		</div>
+		</button>
 	);
 }
 

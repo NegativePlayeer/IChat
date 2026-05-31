@@ -6,10 +6,12 @@ function Conversation({
 	messages,
 	// myMessages, mock solution to fake-logic
 	currentUserId,
+	username,
 }: {
 	messages: Message[];
 	// myMessages: Message[];
 	currentUserId: string;
+	username: string;
 }) {
 	const allMessages = [...messages]
 		.sort(
@@ -24,7 +26,10 @@ function Conversation({
 		});
 
 	return (
-		<div className='flex-1 bg-zinc-50 min-h-0 overflow-y-auto p-4'>
+		<div
+			className='flex-1 bg-zinc-50 min-h-0 overflow-y-auto p-4'
+			aria-label={`Chat with ${username}`}
+		>
 			{allMessages.map((message) => (
 				<MessageBubble
 					key={message.id}
