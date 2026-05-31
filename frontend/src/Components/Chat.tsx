@@ -19,26 +19,12 @@ function Chat({
 	onSendMessage,
 }: ChatProps) {
 	const [message, setMessage] = useState<string>('');
-	// const [myMessages, setMyMessages] = useState<Message[]>(
-	// 	[],
-	// ); -> no longer needed
 
 	function handleMessageSend(
 		e: React.SubmitEvent<HTMLFormElement>,
 	) {
 		e.preventDefault();
 		if (!message.trim()) return; //Whitespaces are still doable
-		// setMyMessages((prevMessages) => {
-		// 	return [
-		// 		...prevMessages,
-		// 		{
-		// 			id: crypto.randomUUID(),
-		// 			text: message,
-		// 			senderId: currentUser.id,
-		// 			timestamp: new Date(),
-		// 		},
-		// 	];
-		// });
 		onSendMessage(user.id, message);
 		setMessage('');
 	}
@@ -48,7 +34,6 @@ function Chat({
 			<ChatHeader user={user} />
 			<Conversation
 				messages={user.messages}
-				// myMessages={myMessages}
 				currentUserId={currentUser.id}
 				username={user.username}
 			/>

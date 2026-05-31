@@ -1,6 +1,5 @@
-// import { Menu } from 'lucide-react';
 import UserChat from './UserChat';
-import IChatLogo from '../../public/IChatLogo';
+import IChatLogo from '../assets/IChatLogo';
 import type { User } from './types/index';
 import { useState } from 'react';
 
@@ -16,12 +15,12 @@ function Sidebar({
 	onSelectedUserId,
 }: SidebarProps) {
 	const [filter, setFilter] = useState<string>('');
-	let filteredUser: User[];
+	let filteredUsers: User[];
 
 	if (filter === '') {
-		filteredUser = [...users];
+		filteredUsers = [...users];
 	} else {
-		filteredUser = [...users].filter(
+		filteredUsers = [...users].filter(
 			(user) =>
 				user.username
 					.toLowerCase()
@@ -48,7 +47,7 @@ function Sidebar({
 				/>
 			</div>
 			<div>
-				{filteredUser.map((user) => (
+				{filteredUsers.map((user) => (
 					<UserChat
 						key={user.id}
 						userInfo={user}

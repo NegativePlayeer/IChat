@@ -8,7 +8,7 @@ export interface Message {
 export interface User {
 	id: string;
 	username: string;
-	avatarUrl?: string;
+	avatarUrl?: string; //for future API
 	isActive: boolean;
 	messages: Message[];
 }

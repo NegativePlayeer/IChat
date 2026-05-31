@@ -18,14 +18,11 @@ function UserChat({
 
 	return (
 		<button
-			className={`flex w-full  focus-visible:outline-2 focus-visible: outline-violet-600 text-left items-center justify-between gap-4  px-3 py-2 cursor-pointer ${selectedUser ? 'bg-violet-200' : 'hover:bg-violet-100'}`}
+			className={`flex w-full  focus-visible:outline-2 focus-visible:outline-violet-600 text-left items-center justify-between gap-4  px-3 py-2 cursor-pointer ${selectedUser ? 'bg-violet-200' : 'hover:bg-violet-100'}`}
 			onClick={onClick}
 			aria-selected={selectedUser}
 		>
-			<div
-				className='flex gap-5 items-center'
-				aria-label='Conversations'
-			>
+			<div className='flex gap-5 items-center'>
 				<UserAvatar
 					isActive={userInfo.isActive}
 					usernameShort={shortenName}

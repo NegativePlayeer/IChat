@@ -4,12 +4,10 @@ import { dateParser } from './helpers/dateParser';
 
 function Conversation({
 	messages,
-	// myMessages, mock solution to fake-logic
 	currentUserId,
 	username,
 }: {
 	messages: Message[];
-	// myMessages: Message[];
 	currentUserId: string;
 	username: string;
 }) {
